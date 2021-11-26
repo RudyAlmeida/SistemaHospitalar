@@ -37,7 +37,7 @@ Desafio de HTML, CSS , JAVASCRIPT , JQUERY, BOOTSTRAP, NODEJS, HANDLEBARS e MONG
 
 - GitHub: [@GabyyOliveira](https://github.com/GabyyOliveira)
 - GitHub: [@RafaelVGomes](https://github.com/RafaelVGomes)
-- GitHub: [@RudyAlmeida(https://github.com/RudyAlmeida)
+- GitHub: [@RudyAlmeida](https://github.com/RudyAlmeida)
 ---
 
 Copyright - 2021 Caio, Gabriela, Rafael, Rodolpho | SoulCode Challenge
