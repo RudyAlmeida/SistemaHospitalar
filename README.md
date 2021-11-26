@@ -3,7 +3,7 @@
 <h3 align="center">Solução para agendamento de consultas em hospitais.</h3>
 
 
-<p align="center"><a href="https://rudyalmeida.github.io/sistemahospitalar/" >Em andanmento 🚀</a><p>
+<p align="center">Em andanmento 🚀</a><p>
 
 
 
