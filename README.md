@@ -35,6 +35,7 @@ Desafio de HTML, CSS , JAVASCRIPT , JQUERY, BOOTSTRAP, NODEJS, HANDLEBARS e MONG
 
 ## Authors 👨‍💻
 
+- GitHub: [@caiochagaz](https://github.com/caiochagaz)
 - GitHub: [@GabyyOliveira](https://github.com/GabyyOliveira)
 - GitHub: [@RafaelVGomes](https://github.com/RafaelVGomes)
 - GitHub: [@RudyAlmeida](https://github.com/RudyAlmeida)
