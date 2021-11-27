@@ -9,6 +9,7 @@ const { uploadFile } = require('./s3')
 const multer = require('multer')
 require("dotenv").config();
 const fs = require('fs')
+const objectId = require('mongodb').ObjectId
 
 
 const storage = multer.diskStorage({
@@ -45,6 +46,21 @@ app.use(express.static(__dirname + '/public'))
 app.get('/', (req, res) => {
     res.render('./index')
 })
+
+// CADASTRO de ESPECIALIDADES
+app.get('/cadEsp', (req, res) => {
+    res.render('cadEspecialidades')
+})
+
+app.post('/addEsp', (req, res)=>{
+    const obj = {
+        nome: req.body.especialidade
+    }
+    dbo.collection('Especialidades').insertOne(obj, (erro, add)=>{
+      console.log(`Especialidade '${obj.nome}' cadastrada.`)
+      res.redirect('/cadEsp')
+    })
+  })
 
 app.get('/foto', (req, res) => {
     res.render('foto')
