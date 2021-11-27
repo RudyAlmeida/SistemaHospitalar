@@ -49,6 +49,9 @@ app.get('/', (req, res) => {
 app.get('/foto', (req, res) => {
     res.render('foto')
 })
+app.get('/login', (req, res) => {
+    res.render('login')
+})
 
 app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     const { nome, site } = req.body;
