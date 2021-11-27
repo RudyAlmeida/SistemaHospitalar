@@ -55,6 +55,7 @@ app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     const file = req.file
     const resultado = await uploadFile(file)
     console.log(resultado)
+    resultado.Location
 })
 
 app.listen(port, () => {
