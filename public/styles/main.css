@@ -1,3 +1,25 @@
+
+.welcome{
+    background-color: #53B8BB;
+    border-radius: 20px 0px 0px 20px;
+    
+}
+h3{
+    color: white; 
+}
+p a{
+    text-decoration: none;
+}
+.btn-edit{
+    background-color: #53B8BB;
+    border:0;
+    padding: 10px;
+    outline: 0;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all ease 0.5s;
+}
 .loginImg {
     border-radius: 50px;
     width: 3vw;

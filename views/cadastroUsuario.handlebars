@@ -1,0 +1,21 @@
+<div class="container-fluid w-75 mt-4">
+    <div class="row">
+        <div class="col col-lg-6 col-sm-12 welcome ">
+            <h2 class="text-center mt-5 p-4">Já possui uma conta?</h2>
+            <p class="text-center">Faça o <a href="">login</a></p>
+        </div>
+        <div class="col col-lg-6 col-sm-12">
+            <form action="/NovoUsuario" method="post">
+                <h2 class="text-center mt-5 ">Criar conta</h2>
+                <p class="text-center" >É rápido, fácil e gratuito</p>
+                <div class="linhaInput p-2">
+                    <input type="text" name="nome" class="form-control w-80" placeholder="Digite seu Nome" required />
+                    <input type="email" name="email" class="form-control mt-2 w-80 " placeholder="Digite um email" required />
+                    <input type="password" name="senha" class="form-control mt-2 w-80" placeholder="Digite uma senha" required/>
+                    <button id="bnt" type="submit" class="btn-edit mt-3">Cadastrar</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
