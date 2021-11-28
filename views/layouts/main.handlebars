@@ -28,9 +28,9 @@
 
 </head>
 
-<body>
+<body = onload="getUser()">
     <div class="modal" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
-        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="exampleModalLongTitle">Cadastre-se ou Faça seu login</h3>
@@ -43,24 +43,23 @@
                         <h5>Faça seu login via Google ou por e-mail e senha</h5>
                         <div id="loginBtn" class="g-signin2 mt-5" data-onsuccess="onSignIn"></div>
                         <div class="row my-5">
-                            <a href="/queopsmaritime/cadastro.html">Se ainda não é cadastrado clique aqui.</a>
+                            <a href="/cadUsuario">Se ainda não é cadastrado clique aqui.</a>
                         </div>
                     </div>
                     <div class="container">
-                        <form action="">
+                        <form >
                             <div class="row">
                                 <label for="email">E-mail</label>
-                                <input type="email">
+                                <input type="email" id="signEmail">
                             </div>
                             <div class="row">
                                 <label for="">Senha:</label>
-                                <input type="password">
+                                <input type="password" id="signPassword">
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    onclick="fecharModal()">Close</button>
-                                <button type="reset" class="btn btn-primary">Save changes</button>
+                                <button type="reset" class="btn btn-secondary" data-dismiss="modal" >Limpar</button>
+                                <button type="reset" class="btn btn-primary" onclick="signUser()">Entrar</button>
                             </div>
                     </div>
                     </form>
@@ -102,9 +101,8 @@
                                 <span id="dropText">Cadastre-se / Login</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><button type="button" class="btn btn-primary dropdown-item" onclick="abrirModal()">
-                                        Perfil
-                                    </button></li>
+                                <li><a class="dropdown-item" href="/cadUsuario">Cadastro</a></li>
+                                <li><a class="dropdown-item" href="#">Perfil</a></li>
                                 <li><a class="dropdown-item" href="#">Consultas</a></li>
                                 <li><button class="dropdown-item" onclick="signOut()">Logout</button></li>
                             </ul>

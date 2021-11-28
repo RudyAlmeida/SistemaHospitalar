@@ -25,13 +25,82 @@ function onSignIn(googleUser) {
     console.log(document.getElementById('loginBtn'))
     let userData = {}
     userData.nome = profile.getName();
-    userData.mail = profile.getEmail()
+    userData.email = profile.getEmail()
     userData.img = profile.getImageUrl()
-    userData.id = profile.getId()
-        // Salvando o login no Local Storage
+    userData.idGoogle = profile.getId()
+    userData.senha = null
+
+    // Salvando o login no Local Storage
     localStorage.setItem('userData', JSON.stringify(userData))
     console.log(localStorage)
+
+    fetch('/salvarGoogle', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                obj: userData
+            })
+        }).then(res => {
+            const response = res.json()
+            console.log(response)
+            return res.json()
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'))
+
 }
+
+function signUser() {
+    let userData = {}
+    let responseUser = {}
+    userData.email = document.getElementById('signEmail').value
+    userData.password = document.getElementById('signPassword').value
+    console.log(userData)
+    fetch('/logarUser', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            obj: userData
+        })
+    }).then(res => {
+        /*  const response = res.json()
+         console.log(response.Object) */
+        return res.json()
+    }).then(data => {
+        console.log(data)
+        if (data.nome != undefined) {
+            console.log(data.img)
+            document.getElementById('dropText').innerText = data.nome
+            let userData = {}
+            userData.nome = data.nome
+            userData.email = data.email
+            userData.img = data.img
+            userData.idGoogle = data.idGoogle
+                // Salvando o login no Local Storage
+            localStorage.setItem('userData', JSON.stringify(userData))
+            console.log(localStorage)
+            if (data.img != undefined) {
+                let logImg = document.getElementById('loginImg')
+                console.log(logImg)
+                logImg.src = img
+            } else {
+                let logImg = document.getElementById('loginImg')
+                logImg.src = "/img/person-circle.svg"
+            }
+            fecharModal();
+        }
+
+    }).catch(error => console.log('ERROR'))
+
+
+
+
+}
+
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -50,7 +119,11 @@ function getUser() {
     if (userData != null) {
         let logImg = document.getElementById('loginImg')
         let img = userData.img
-        logImg.src = img
+        if (img != undefined) {
+            logImg.src = img
+        } else {
+            logImg.src = "/img/person-circle.svg"
+        }
         let nome = userData.nome
         document.getElementById('dropText').innerText = nome
         $("#contato").val(userData.nome)
