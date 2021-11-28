@@ -1,3 +1,4 @@
+
 .welcome{
     background-color: #53B8BB;
     border-radius: 20px 0px 0px 20px;
@@ -19,4 +20,7 @@ p a{
     font-weight: bold;
     transition: all ease 0.5s;
 }
-
+.loginImg {
+    border-radius: 50px;
+    width: 3vw;
+}
