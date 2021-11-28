@@ -49,12 +49,27 @@ app.get('/', (req, res) => {
 app.get('/foto', (req, res) => {
     res.render('foto')
 })
-
+app.get('/cadUsuario', (req,res)=>{
+    res.render('cadastroUsuario')
+})
 app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     const { nome, site } = req.body;
     const file = req.file
     const resultado = await uploadFile(file)
     console.log(resultado)
+})
+//cadastro de usuario
+app.post('/NovoUsuario', (req,res) => {
+    const Nusuario = {
+        nome: req.body.nome,
+        email:req.body.email,
+        senha:req.body.senha
+    }
+    dbo.collection('Usuarios').insertOne(Nusuario, (err, result)=>{
+        if(err) throw err
+        console.log('Usuario Cadastrado')
+        res.redirect('/cadUsuario')
+    })
 })
 
 app.listen(port, () => {
