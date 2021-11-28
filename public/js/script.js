@@ -80,9 +80,25 @@ function signUser() {
             userData.email = data.email
             userData.img = data.img
             userData.idGoogle = data.idGoogle
+            userData.admin = data.admin
                 // Salvando o login no Local Storage
             localStorage.setItem('userData', JSON.stringify(userData))
             console.log(localStorage)
+            if (userData.admin === true) {
+                let a = document.createElement("a");
+                a.setAttribute("href", "/admin");
+                a.setAttribute('class', 'nav-link')
+                a.innerText = 'Administração'
+                let li = document.createElement("li");
+                let ul = document.getElementById('navItens')
+                li.setAttribute('class', 'nav-item')
+                li.setAttribute('id', 'liAdmin')
+                li.appendChild(a)
+                ul.appendChild(li)
+            }
+
+            fecharModal();
+
             if (data.img != undefined) {
                 let logImg = document.getElementById('loginImg')
                 console.log(logImg)
@@ -91,7 +107,7 @@ function signUser() {
                 let logImg = document.getElementById('loginImg')
                 logImg.src = "/img/person-circle.svg"
             }
-            fecharModal();
+
         }
 
     }).catch(error => console.log('ERROR'))
@@ -111,6 +127,7 @@ function signOut() {
         localStorage.clear();
         console.log('User signed out.');
         console.log(localStorage)
+        document.getElementById('liAdmin').innerHTML = '';
     });
 }
 // Recuperando o login do Local Storage
@@ -123,6 +140,18 @@ function getUser() {
             logImg.src = img
         } else {
             logImg.src = "/img/person-circle.svg"
+        }
+        if (userData.admin === true) {
+            let a = document.createElement("a");
+            a.setAttribute("href", "/admin");
+            a.setAttribute('class', 'nav-link')
+            a.innerText = 'Administração'
+            let li = document.createElement("li");
+            let ul = document.getElementById('navItens')
+            li.setAttribute('class', 'nav-item')
+            li.setAttribute('id', 'liAdmin')
+            li.appendChild(a)
+            ul.appendChild(li)
         }
         let nome = userData.nome
         document.getElementById('dropText').innerText = nome
