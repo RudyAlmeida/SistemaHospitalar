@@ -57,6 +57,40 @@ app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     console.log(resultado)
 })
 
+//rota de cadastro de médicos
+
+app.get('/cadMedicos',(req,res)=>{
+    dbo.collection("Especialidades").find({}).toArray((erro, resultado)=>{
+        if (erro) throw erro
+        console.log(resultado)
+        res.render('cadastroMedicos', {resultado})
+    })
+
+   
+})
+
+//post do cadastro
+app.post('/addMedicos',(req,res)=>{
+    const obj ={nome:req.body.nome,
+                endereco:req.body.endereco,
+                telefone:req.body.telefone,
+                dataNascimento:req.body.datanascimento,
+                estado:req.body.estado,
+                email:req.body.email,
+                situacao:req.body.situacao,
+                especialidades:req.body.especialidades
+                
+                }
+    dbo.collection('infoMedicos').insertOne(obj,(erro,resultado)=>{
+        if(erro)throw erro
+        console.log('1 medico inserido')
+        res.redirect("/home")
+    })
+})
+
+
+
+
 app.listen(port, () => {
     console.log('Servidor está rodando')
 })

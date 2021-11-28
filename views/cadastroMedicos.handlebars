@@ -1,0 +1,107 @@
+<main>
+
+    {{!-- para chamar uma partial --}}
+
+    <section class="titulo">
+        <h2>Cadastro de Médicos</h2>
+        <span>informações</span>
+    </section>
+    <section class="card">
+
+        <form action="/addMedicos" method="post">
+
+            <div class="linhaDeInput">
+                <label>Nome:</label>
+                <input type="text" id="nome" placeholder="digite seu nome" name="nome"></input>
+            </div>
+
+
+            <div class="linhaDeInput">
+                <label>Endereço:</label>
+                <input type="text" id="endereco" placeholder="digite seu endereço" name="endereco"></input>
+            </div>
+
+
+            <div class="linhaDeInput">
+                <label>Telefone:</label>
+                <input type="tel" id="telefone" placeholder="(00) 0000-0000" class="inp" name="telefone">
+            </div>
+
+
+            <div class="linhaDeInput">
+                <label>Data de Nascimento:</label>
+                <input type="date" id="datanascimento" placeholder="data de nascimento" name="datanascimento"></input>
+            </div>
+
+
+            <div class="linhaDeInput">
+                <label>UF:</label>
+                <select id="estado" class="esc" id name="estado">
+                    <option value="">selecione seu estado</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PA</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                </select>
+            </div>
+
+
+            <div class="linhaDeInput">
+                <label>Email</label>
+                <input type="text" id="email" placeholder="digite seu e-mail" name="email"></input>
+            </div>
+
+
+            <div class="linhaDeInput">
+
+                <label>Situação:</label>
+                <select id="situacao" class="esc" id name="situacao">
+                    <option value=">selecione seu status" </option>
+                    <option value="ativo">CRM Ativo</option>
+                    <option value="inativo">CRM Inativo</option>
+
+                </select>
+            </div>
+
+            <div>
+                <label>Especialidades:</label>
+                <select id="especialidades" class="esc" name="especialidades">
+
+                    {{#each resultado}}
+
+                    <option value="{{nome}}">{{nome}}</option>
+
+                    {{/each}}
+                </select>
+            </div>
+
+
+            <button id="btn1" type="submit">Salvar</button>
+            <button id="btn2" type="reset">Cancelar</button>
+
+        </form>
+    </section>
+</main>
