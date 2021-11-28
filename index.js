@@ -163,19 +163,8 @@ app.post('/logarUser', (req, res) => {
         })
         res.send(JSON.stringify(usuario))
 
-        /* userNotLogged == false ? res.render('./admin', { userNotLogged, layout: 'mainBootstrap.handlebars' }) : res.render('./admin', { userNotLoged, layout: 'mainBootstrap.handlebars' }) */
     })
 
-    /* dbo.collection('Usuarios').findOne({ idGoogle: obj.idGoogle }, (erro, resultado) => {
-        if (resultado === null) {
-            dbo.collection('Usuarios').insertOne(obj, (err, result) => {
-                if (err) throw err
-                console.log('Usuario Cadastrado')
-            })
-        } else {
-            console.log('Usuario já cadastrado')
-        }
-    }) */
 })
 
 
