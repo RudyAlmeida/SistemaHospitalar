@@ -67,7 +67,7 @@ app.get('/foto', (req, res) => {
 })
 
 app.get('/cadUsuario', (req,res)=>{
-    res.render('cadastroUsuario')
+    res.render('cadastroUsuario', {style:"usuario.css"})
 })
 app.get('/login', (req, res) => {
     res.render('login')
