@@ -164,6 +164,7 @@ app.post('/logarUser', (req, res) => {
         res.send(JSON.stringify(usuario))
 
     })
+
 })
 
 
