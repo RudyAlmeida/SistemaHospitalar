@@ -163,7 +163,7 @@ app.post('/logarUser', (req, res) => {
         })
         res.send(JSON.stringify(usuario))
 
-        /* userNotLoged == false ? res.render('./admin', { userNotLoged, layout: 'mainBootstrap.handlebars' }) : res.render('./admin', { userNotLoged, layout: 'mainBootstrap.handlebars' }) */
+        /* userNotLogged == false ? res.render('./admin', { userNotLogged, layout: 'mainBootstrap.handlebars' }) : res.render('./admin', { userNotLoged, layout: 'mainBootstrap.handlebars' }) */
     })
 
     /* dbo.collection('Usuarios').findOne({ idGoogle: obj.idGoogle }, (erro, resultado) => {
@@ -176,7 +176,6 @@ app.post('/logarUser', (req, res) => {
             console.log('Usuario já cadastrado')
         }
     }) */
-
 })
 
 
