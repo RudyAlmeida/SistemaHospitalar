@@ -1,6 +1,6 @@
 <div class="col-lg-8 position-relative start-50 translate-middle-x">
   <h1 class="text-center ">Encontre seu Médico</h1>
-<form class="my-3" action="/busca" method="post">
+<form class="my-3" action="/busca?_method=PUT" method="post">
   <div class="form-floating">
     <select class="form-control" name="tipoBusca" id="tipoBusca">
       <option value="nome">Por Nome</option>
@@ -10,7 +10,7 @@
     <label for="tipoBusca"><b>Selecione o tipo de busca:</b></label>
   </div>
   <div class="input-group">
-    <input type="text" class="form-control" id="busca" name="busca" placeholder="Digite o termo da busca" required>
+    <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo da busca" required>
     <button type="submit" class="btn btn-primary">Buscar</button>
   </div>
 </form>
