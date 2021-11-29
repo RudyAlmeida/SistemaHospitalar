@@ -177,8 +177,25 @@ app.post('/logarUser', (req, res) => {
         }
     }) */
 })
+// BUSCA de MÉDICOS
+app.get('/busca', (req, res)=>{
+    res.render('buscaMedico')
+})
+
+app.post('/busca', (req, res)=>{
+    let tipoBusca = req.body.tipoBusca
+    let termo = req.body.busca
+    
+    dbo.collection('infoMedicos').find({[tipoBusca]: { $regex: `(?i)${termo}` }}).toArray((erro, infoMedico)=>{
+        let semResposta = false
+        if(erro) throw erro
+        if(infoMedico.length == 0) semResposta = true
+        res.render('buscaMedico', {infoMedico, semResposta} )
+    })
+})
 
 
+// LISTEN
 app.listen(port, () => {
-    console.log('Servidor está rodando')
+    console.log(`Servidor rodando na porta: ${port}`)
 })
