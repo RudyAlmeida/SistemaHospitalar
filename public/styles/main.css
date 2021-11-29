@@ -2,3 +2,11 @@
     border-radius: 50px;
     width: 3vw;
 }
+
+input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
+	font-style: italic;
+}
+
+footer {
+    box-shadow: 0 50vh 0 30.4vh #212529;
+}

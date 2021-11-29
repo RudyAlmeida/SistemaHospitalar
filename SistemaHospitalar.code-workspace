@@ -2,7 +2,15 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\@Complementos"
+		},
+		{
+			"path": "..\\SoulCode\\projetoHandle"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "SistemaHospitalar"
+	}
 }

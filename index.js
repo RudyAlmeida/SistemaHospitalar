@@ -10,6 +10,7 @@ const multer = require('multer')
 require("dotenv").config();
 const fs = require('fs')
 const objectId = require('mongodb').ObjectId
+const methodOverRide = require('method-override') // Estudado em https://philipm.at/2017/method-override_in_expressjs.html
 
 
 const storage = multer.diskStorage({
@@ -40,8 +41,8 @@ app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverRide('_method'))
 
 app.get('/', (req, res) => {
     res.render('./index')
@@ -166,8 +167,25 @@ app.post('/logarUser', (req, res) => {
     })
 
 })
+// BUSCA de MÉDICOS
+app.get('/busca', (req, res)=>{
+    res.render('buscaMedico')
+})
+
+app.put('/busca', (req, res)=>{
+    let tipoBusca = req.body.tipoBusca
+    let termo = req.body.termo
+    
+    dbo.collection('infoMedicos').find({[tipoBusca]: { $regex: `(?i)${termo}` }}).toArray((erro, infoMedico)=>{
+        let semResposta = false
+        if(erro) throw erro
+        if(infoMedico.length == 0) semResposta = true
+        res.render('buscaMedico', {infoMedico, semResposta} )
+    })
+})
 
 
+// LISTEN
 app.listen(port, () => {
-    console.log('Servidor está rodando')
+    console.log(`Servidor rodando na porta: ${port}`)
 })
