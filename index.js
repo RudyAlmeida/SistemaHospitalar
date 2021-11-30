@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
     res.render('./index', { style: 'index.css' })
 })
 
-// CADASTRO de ESPECIALIDADES
+// CADASTRO de ESP
 app.get('/cadEsp', (req, res) => {
     res.render('cadEspecialidades')
 })
