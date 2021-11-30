@@ -45,7 +45,7 @@ app.use(express.static(__dirname + '/public'))
 app.use(methodOverRide('_method'))
 
 app.get('/', (req, res) => {
-    res.render('./index', {style:'index.css'})
+    res.render('./index', { style: 'index.css' })
 })
 
 // CADASTRO de ESPECIALIDADES
@@ -115,10 +115,17 @@ app.post('/addMedicos', (req, res) => {
     })
     //cadastro de usuario
 app.post('/NovoUsuario', (req, res) => {
+    let admin = Boolean
+    if (req.body.admin == 'true') {
+        admin = true
+    } else {
+        admin = false
+    }
     const Nusuario = {
         nome: req.body.nome,
         email: req.body.email,
-        senha: req.body.senha
+        senha: req.body.senha,
+        admin: admin
     }
     dbo.collection('Usuarios').insertOne(Nusuario, (err, result) => {
         if (err) throw err
@@ -143,45 +150,68 @@ app.post('/salvarGoogle', (req, res) => {
 })
 
 app.post('/logarUser', (req, res) => {
-    obj = req.body.obj
-    console.log(obj)
-    let usuario = []
+        obj = req.body.obj
+        console.log(obj)
+        let usuario = []
 
-    dbo.collection('Usuarios').find({}).toArray((erro, resultado) => {
-        const user = {
-            email: obj.email,
-            password: obj.password
-        }
-
-        if (erro) { throw erro }
-
-        resultado.forEach(element => {
-            if (element['email'] == user['email'] && element['senha'] == user['password']) {
-                usuario = element
-                console.log(usuario)
-
+        dbo.collection('Usuarios').find({}).toArray((erro, resultado) => {
+            const user = {
+                email: obj.email,
+                password: obj.password
             }
+
+            if (erro) { throw erro }
+
+            resultado.forEach(element => {
+                if (element['email'] == user['email'] && element['senha'] == user['password']) {
+                    usuario = element
+                    console.log(usuario)
+
+                }
+            })
+            res.send(JSON.stringify(usuario))
+
         })
-        res.send(JSON.stringify(usuario))
 
     })
-
-})
-// BUSCA de MÉDICOS
-app.get('/busca', (req, res)=>{
+    // BUSCA de MÉDICOS
+app.get('/busca', (req, res) => {
     res.render('buscaMedico')
 })
 
-app.put('/busca', (req, res)=>{
+app.put('/busca', (req, res) => {
     let tipoBusca = req.body.tipoBusca
     let termo = req.body.termo
-    
-    dbo.collection('infoMedicos').find({[tipoBusca]: { $regex: `(?i)${termo}` }}).toArray((erro, infoMedico)=>{
+
+    dbo.collection('infoMedicos').find({
+        [tipoBusca]: { $regex: `(?i)${termo}` }
+    }).toArray((erro, infoMedico) => {
         let semResposta = false
-        if(erro) throw erro
-        if(infoMedico.length == 0) semResposta = true
-        res.render('buscaMedico', {infoMedico, semResposta} )
+        if (erro) throw erro
+        if (infoMedico.length == 0) semResposta = true
+        res.render('buscaMedico', { infoMedico, semResposta })
     })
+})
+
+app.get('/admin/:id', (req, res) => {
+    id = req.params.id
+    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => {
+        console.log(resultado)
+        res.render('admin', { resultado })
+    })
+
+})
+
+app.get('/admin/cadUser/:id', (req, res) => {
+    id = req.params.id
+    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => {
+        dbo.collection("Usuarios").find({ admin: true }).toArray((erro, result) => {
+            if (erro) throw erro
+            console.log(result)
+            res.render('cadUser', { resultado: resultado, result: result })
+        })
+    })
+
 })
 
 

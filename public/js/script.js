@@ -67,8 +67,6 @@ function signUser() {
             obj: userData
         })
     }).then(res => {
-        /*  const response = res.json()
-         console.log(response.Object) */
         return res.json()
     }).then(data => {
         console.log(data)
@@ -76,6 +74,7 @@ function signUser() {
             console.log(data.img)
             document.getElementById('dropText').innerText = data.nome
             let userData = {}
+            userData.id = data._id
             userData.nome = data.nome
             userData.email = data.email
             userData.img = data.img
@@ -86,7 +85,7 @@ function signUser() {
             console.log(localStorage)
             if (userData.admin === true) {
                 let a = document.createElement("a");
-                a.setAttribute("href", "/admin");
+                a.setAttribute("href", "/admin/" + userData.id);
                 a.setAttribute('class', 'nav-link')
                 a.innerText = 'Administração'
                 let li = document.createElement("li");
@@ -143,7 +142,7 @@ function getUser() {
         }
         if (userData.admin === true) {
             let a = document.createElement("a");
-            a.setAttribute("href", "/admin");
+            a.setAttribute("href", "/admin/" + userData.id);
             a.setAttribute('class', 'nav-link')
             a.innerText = 'Administração'
             let li = document.createElement("li");
