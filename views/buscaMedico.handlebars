@@ -31,14 +31,14 @@
     {{else}}
       {{#if infoMedico}}
         {{#each infoMedico}}
-          <tr>
+          <tr onclick="abrirModal()">
             <td scope="row">{{nome}}</td>
             <td scope="row">{{estado}}</td>
             <td scope="row">{{especialidades}}</td>
           </tr>
         {{/each}}
       {{else}}
-        <tr>
+        <tr >
           <td scope="row" colspan="3">Aguardando termo de busca...</td>
         </tr>
       {{/if}}
