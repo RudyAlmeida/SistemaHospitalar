@@ -106,5 +106,3 @@ dist
 uploads/
 
 
-# Workspaces
-*.code-workspace
