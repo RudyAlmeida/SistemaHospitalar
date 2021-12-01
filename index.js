@@ -14,10 +14,10 @@ const methodOverRide = require('method-override') // Estudado em https://philipm
 
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, 'uploads/')
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
 
         const extensaoArquivo = file.originalname.split('.')[1];
         const novoNomeArquivo = require('crypto')
@@ -74,7 +74,7 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
+app.post('/salvarFoto', upload.single('imagem'), async (req, res) => {
     const { nome, site } = req.body;
     const file = req.file
     const resultado = await uploadFile(file)
@@ -82,9 +82,85 @@ app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     resultado.Location
 })
 
+//--------------------------------------//
+
 //rota de cadastro de médicos
 
 app.get('/cadMedicos', (req, res) => {
+
+    dbo.collection("Especialidades").find({}).toArray((erro, especialidades) => {
+        if (erro) throw erro
+        console.log(especialidades)
+        res.render('cadastroMedicos', { especialidades })
+    })
+})
+
+//post do cadastro
+
+app.post('/addMedicos', upload.single('imagem'), async (req, res) => {
+
+    const file = req.file
+    const resultado = await uploadFile(file)
+    const obj = {
+        nome: req.body.nome,
+        endereco: req.body.endereco,
+        telefone: req.body.telefone,
+        dataNascimento: req.body.dataNascimento,
+        estado: req.body.estado,
+        email: req.body.email,
+        situacao: req.body.situacao,
+        especialidades: req.body.especialidades,
+        foto: resultado.Location
+    }
+
+    if(req.body.idInp == ""){
+        dbo.collection('infoMedicos').insertOne(obj, (erro, resultado) => {
+            if (erro) throw erro
+            console.log('1 medico inserido')
+            res.redirect("/medico/listagem")
+        })
+
+
+    }else{
+
+        const idInp = req.body.idInp
+        const objMed = new objectId(idInp)
+        dbo.collection("infoMedicos").updateOne(
+            {_id:objMed},
+            {$set:obj},
+            {upsert:true}, (erro, resultado)=>{
+                if(erro)throw erro
+                res.redirect('/medico/listagem')
+            }
+            
+  
+        )
+
+
+    }
+    
+})
+
+//listagem de médicos
+
+app.get('/medico/listagem', (req, res) => {
+    dbo.collection('infoMedicos').find({}).toArray((erro, resultado) => {
+        if (erro) throw erro
+        res.render('listagemMedicos', { resultado })
+    })
+})
+
+//deletar médicos
+
+app.get('/medico/deletar/:_id', (req, res) => {
+
+    const idMed = req.params._id
+    const objMed = new objectId(idMed)
+    dbo.collection('infoMedicos').deleteOne({ _id: objMed }, (erro, resultado) => {
+
+        if (erro) throw erro
+        res.redirect('/medico/listagem')
+
     dbo.collection("Especialidades").find({}).toArray((erro, resultado) => {
         if (erro) throw erro
         console.log(resultado)
@@ -202,6 +278,7 @@ app.get('/admin/:id', (req, res) => {
 
 })
 
+
 app.get('/admin/cadUser/:id', (req, res) => {
     id = req.params.id
     dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => {
@@ -214,6 +291,33 @@ app.get('/admin/cadUser/:id', (req, res) => {
 
 })
 
+  //editar médicos
+
+app.get('/medico/editar/:_id', (req, res) => {
+
+    let action = "atualizar"
+
+    const idMed = req.params._id
+    const objMed = new objectId(idMed)
+    console.log(objMed)
+
+    dbo.collection('infoMedicos').findOne({ _id: objMed }, (erro, resultado) => {
+        if (erro) throw erro
+        // arquivo da página
+        console.log(resultado)
+
+        dbo.collection('Especialidades').find({}).toArray((erro, especialidades) => {
+            if (erro) throw erro
+            
+            res.render('cadastroMedicos', { resultado, action, especialidades })
+            
+        })
+
+        
+    })
+
+
+})
 
 // LISTEN
 app.listen(port, () => {
