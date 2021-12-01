@@ -1,0 +1,26 @@
+{{#with resultado}}
+{{#if admin}}
+
+
+<div class="container-fluid my-5 vh-100">
+    <div class="row w-100 text-center">
+        <h1>Sejá bem vindo area de admin</h1>
+    </div>
+    <div class="row w-100 text-center my-5 ">
+        <p>O que vamos fazer hoje?</p>
+    </div>
+    <div class="row w-100">
+        <div class="col w-100 text-center">
+            <a href="#"><button class="btn btn-dark mx-3">Adicionar/Editar Especialidades</button></a>
+            <a href="#"><button class="btn btn-dark mx-3">Adicionar/Editar Médicos</button></a>
+            <a href="/admin/cadUser/{{_id}}"><button class="btn btn-dark mx-3">Adicionar/Editar Administradores</button></a>
+        </div>
+    </div>
+</div>
+
+{{else}}
+
+<h1>Acesso não permitido</h1>
+
+{{/if}}
+{{/with}}
