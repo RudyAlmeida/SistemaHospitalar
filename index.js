@@ -14,10 +14,10 @@ const methodOverRide = require('method-override') // Estudado em https://philipm
 
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function(req, file, cb) {
         cb(null, 'uploads/')
     },
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
 
         const extensaoArquivo = file.originalname.split('.')[1];
         const novoNomeArquivo = require('crypto')
@@ -74,7 +74,7 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('/salvarFoto', upload.single('imagem'), async (req, res) => {
+app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
     const { nome, site } = req.body;
     const file = req.file
     const resultado = await uploadFile(file)
@@ -97,7 +97,7 @@ app.get('/cadMedicos', (req, res) => {
 
 //post do cadastro
 
-app.post('/addMedicos', upload.single('imagem'), async (req, res) => {
+app.post('/addMedicos', upload.single('imagem'), async(req, res) => {
 
     const file = req.file
     const resultado = await uploadFile(file)
@@ -113,7 +113,7 @@ app.post('/addMedicos', upload.single('imagem'), async (req, res) => {
         foto: resultado.Location
     }
 
-    if(req.body.idInp == ""){
+    if (req.body.idInp == "") {
         dbo.collection('infoMedicos').insertOne(obj, (erro, resultado) => {
             if (erro) throw erro
             console.log('1 medico inserido')
@@ -121,24 +121,21 @@ app.post('/addMedicos', upload.single('imagem'), async (req, res) => {
         })
 
 
-    }else{
+    } else {
 
         const idInp = req.body.idInp
         const objMed = new objectId(idInp)
-        dbo.collection("infoMedicos").updateOne(
-            {_id:objMed},
-            {$set:obj},
-            {upsert:true}, (erro, resultado)=>{
-                if(erro)throw erro
+        dbo.collection("infoMedicos").updateOne({ _id: objMed }, { $set: obj }, { upsert: true }, (erro, resultado) => {
+                if (erro) throw erro
                 res.redirect('/medico/listagem')
             }
-            
-  
+
+
         )
 
 
     }
-    
+
 })
 
 //listagem de médicos
@@ -161,12 +158,14 @@ app.get('/medico/deletar/:_id', (req, res) => {
         if (erro) throw erro
         res.redirect('/medico/listagem')
 
-    dbo.collection("Especialidades").find({}).toArray((erro, resultado) => {
-        if (erro) throw erro
-        console.log(resultado)
-        res.render('cadastroMedicos', { resultado })
-    })
+        dbo.collection("Especialidades").find({}).toArray((erro, resultado) => {
+            if (erro) throw erro
+            console.log(resultado)
+            res.render('cadastroMedicos', { resultado })
+        })
 
+
+    })
 
 })
 
@@ -291,7 +290,7 @@ app.get('/admin/cadUser/:id', (req, res) => {
 
 })
 
-  //editar médicos
+//editar médicos
 
 app.get('/medico/editar/:_id', (req, res) => {
 
@@ -303,17 +302,17 @@ app.get('/medico/editar/:_id', (req, res) => {
 
     dbo.collection('infoMedicos').findOne({ _id: objMed }, (erro, resultado) => {
         if (erro) throw erro
-        // arquivo da página
+            // arquivo da página
         console.log(resultado)
 
         dbo.collection('Especialidades').find({}).toArray((erro, especialidades) => {
             if (erro) throw erro
-            
+
             res.render('cadastroMedicos', { resultado, action, especialidades })
-            
+
         })
 
-        
+
     })
 
 
