@@ -5,10 +5,28 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "pwa-chrome",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "type": "pwa-chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
-      "url": "http://localhost:3000/cadEsp",
+      "url": "http://localhost:3000/busca",
+      "webRoot": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222"
+      ],
+    },
+    {
+      "type": "devtools-for-chrome",
+      "request": "attach",
+      "name": "Attach Devtools for Chrome",
+      "port": 9222,
+      "urlFilter": "http://localhost:3000/*",
       "webRoot": "${workspaceFolder}"
     }
   ]

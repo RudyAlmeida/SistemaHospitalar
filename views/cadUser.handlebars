@@ -1,0 +1,56 @@
+
+{{#if resultado.admin}}
+
+<div class="container-fluid my-5 vh-100">
+    <div class="container-fluid w-75 my-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col col-lg-6 col-sm-12">
+                <form action="/NovoUsuario" method="post">
+                    <h2 class="text-center mt-5 ">Criar conta</h2>
+                    <p class="text-center">É rápido, fácil e gratuito</p>
+                    <div class="linhaInput p-2">
+                        <input type="text" name="nome" class="form-control w-80" placeholder="Digite seu Nome"
+                            required />
+                        <input type="email" name="email" class="form-control mt-2 w-80 " placeholder="Digite um email"
+                            required />
+                        <input type="password" name="senha" class="form-control mt-2 w-80"
+                            placeholder="Digite uma senha" required />
+                        <input type="hidden" name="admin" value="true">
+                        <button id="bnt" type="submit" class="btn btn-dark mt-3">Cadastrar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center my-5">
+            <table class="table table-hover" border=1 id="tabela">
+        <thead>
+            <th>Nome:</th>
+            <th>E-mail:</th>
+            <th>Senha:</th>
+            <th>Ações:</th>
+        </thead>
+        <tbody id="tbody">
+            {{#each result}}
+            <tr>
+                <td>{{nome}}</td>
+                <td>{{email}}</td>
+                <td>{{senha}}</td>
+                <td><a href="editarFuncionario/{{_id}}"><img src="/img/edit.png"width="20px"></a>
+                    <a href="deletarFuncionario/{{_id}}"><img src="/img/delete.png"width="20px"></a>
+                </td>
+            </tr>
+           
+            {{/each}}
+            
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div>
+
+{{else}}
+
+<h1>Acesso não permitido</h1>
+
+{{/if}}
