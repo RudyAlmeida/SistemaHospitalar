@@ -85,7 +85,7 @@ function signUser() {
             console.log(localStorage)
             if (userData.admin === true) {
                 let a = document.createElement("a");
-                a.setAttribute("href", "/admin/" + userData.id);
+                a.setAttribute("href", "/admin/" /* + userData.id */ );
                 a.setAttribute('class', 'nav-link')
                 a.innerText = 'Administração'
                 let li = document.createElement("li");
@@ -127,6 +127,18 @@ function signOut() {
         console.log('User signed out.');
         console.log(localStorage)
         document.getElementById('liAdmin').innerHTML = '';
+
+        fetch('/logoutUser', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(res => {
+            return res.json()
+        }).then(data => {
+            console.log(data)
+        }).catch(error => console.log('ERROR'))
+
     });
 }
 // Recuperando o login do Local Storage
@@ -142,7 +154,7 @@ function getUser() {
         }
         if (userData.admin === true) {
             let a = document.createElement("a");
-            a.setAttribute("href", "/admin/" + userData.id);
+            a.setAttribute("href", "/admin/" /* + userData.id */ );
             a.setAttribute('class', 'nav-link')
             a.innerText = 'Administração'
             let li = document.createElement("li");

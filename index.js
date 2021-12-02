@@ -11,6 +11,8 @@ require("dotenv").config();
 const fs = require('fs')
 const objectId = require('mongodb').ObjectId
 const methodOverRide = require('method-override') // Estudado em https://philipm.at/2017/method-override_in_expressjs.html
+const { LocalStorage } = require('node-localstorage')
+var localStorage = new LocalStorage('./scratch');
 
 
 const storage = multer.diskStorage({
@@ -26,6 +28,20 @@ const storage = multer.diskStorage({
         cb(null, `${novoNomeArquivo}.${extensaoArquivo}`)
     }
 });
+
+const checkAdmin = function(req, res, next) {
+    const user = JSON.parse(localStorage.getItem('Usuario'))
+    if (user == null) {
+        console.log(user)
+        res.redirect('/')
+    } else if (user.admin == true) {
+        console.log(user.admin)
+        return next()
+    } else {
+        console.log(user.admin)
+        res.redirect('/')
+    }
+}
 
 const upload = multer({ storage });
 
@@ -212,12 +228,15 @@ app.post('/NovoUsuario', (req, res) => {
 app.post('/salvarGoogle', (req, res) => {
     obj = req.body.obj
     dbo.collection('Usuarios').findOne({ idGoogle: obj.idGoogle }, (erro, resultado) => {
+
         if (resultado === null) {
             dbo.collection('Usuarios').insertOne(obj, (err, result) => {
                 if (err) throw err
+                localStorage.setItem('Usuario', JSON.stringify(obj))
                 console.log('Usuario Cadastrado')
             })
         } else {
+            localStorage.setItem('Usuario', JSON.stringify(resultado))
             console.log('Usuario já cadastrado')
         }
     })
@@ -225,29 +244,35 @@ app.post('/salvarGoogle', (req, res) => {
 })
 
 app.post('/logarUser', (req, res) => {
-        obj = req.body.obj
-        console.log(obj)
-        let usuario = []
+    obj = req.body.obj
+    console.log(obj)
+    let usuario = []
 
-        dbo.collection('Usuarios').find({}).toArray((erro, resultado) => {
-            const user = {
-                email: obj.email,
-                password: obj.password
+    dbo.collection('Usuarios').find({}).toArray((erro, resultado) => {
+        const user = {
+            email: obj.email,
+            password: obj.password
+        }
+
+        if (erro) { throw erro }
+
+        resultado.forEach(element => {
+            if (element['email'] == user['email'] && element['senha'] == user['password']) {
+                usuario = element
+                localStorage.setItem('Usuario', JSON.stringify(element))
+                console.log(usuario)
+
             }
-
-            if (erro) { throw erro }
-
-            resultado.forEach(element => {
-                if (element['email'] == user['email'] && element['senha'] == user['password']) {
-                    usuario = element
-                    console.log(usuario)
-
-                }
-            })
-            res.send(JSON.stringify(usuario))
-
         })
+        res.send(JSON.stringify(usuario))
 
+    })
+
+})
+
+app.post('/logoutUser', (req, res) => {
+        localStorage.clear()
+        res.send(JSON.stringify('limpo'))
     })
     // BUSCA de MÉDICOS
 app.get('/busca', (req, res) => {
@@ -268,25 +293,26 @@ app.put('/busca', (req, res) => {
     })
 })
 
-app.get('/admin/:id', (req, res) => {
-    id = req.params.id
-    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => {
-        console.log(resultado)
-        res.render('admin', { resultado })
-    })
+app.get('/admin/', checkAdmin, (req, res) => {
+
+    /*  id = req.params.id
+     dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => { */
+    /* console.log(resultado) */
+    res.render('admin')
+        /* }) */
 
 })
 
 
-app.get('/admin/cadUser/:id', (req, res) => {
-    id = req.params.id
-    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => {
-        dbo.collection("Usuarios").find({ admin: true }).toArray((erro, result) => {
+app.get('/admin/cadUser/', checkAdmin, (req, res) => {
+    /* id = req.params.id
+    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => { */
+    dbo.collection("Usuarios").find({ admin: true }).toArray((erro, result) => {
             if (erro) throw erro
             console.log(result)
-            res.render('cadUser', { resultado: resultado, result: result })
+            res.render('cadUser', { result })
         })
-    })
+        /*   }) */
 
 })
 
