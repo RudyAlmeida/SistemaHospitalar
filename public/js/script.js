@@ -1,6 +1,6 @@
 // API de Login do google incluindo autenticação e Logout
 function start() {
-    gapi.load('auth2', function() {
+    gapi.load('auth2', function () {
         auth2 = gapi.auth2.init({
             client_id: '113301151213-bkaouvjjjasi17hvu163054palrsju6k.apps.googleusercontent.com'
 
@@ -35,18 +35,18 @@ function onSignIn(googleUser) {
     console.log(localStorage)
 
     fetch('/salvarGoogle', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                obj: userData
-            })
-        }).then(res => {
-            const response = res.json()
-            console.log(response)
-            return res.json()
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            obj: userData
         })
+    }).then(res => {
+        const response = res.json()
+        console.log(response)
+        return res.json()
+    })
         .then(data => console.log(data))
         .catch(error => console.log('ERROR'))
 
@@ -81,7 +81,7 @@ function signUser() {
             userData.img = data.img
             userData.idGoogle = data.idGoogle
             userData.admin = data.admin
-                // Salvando o login no Local Storage
+            // Salvando o login no Local Storage
             localStorage.setItem('userData', JSON.stringify(userData))
             console.log(localStorage)
             if (userData.admin === true) {
@@ -120,7 +120,7 @@ function signUser() {
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function() {
+    auth2.signOut().then(function () {
         document.getElementById('dropText').innerText = "Cadastre-se / Login"
         let logImg = document.getElementById('loginImg')
         logImg.src = "img/person-circle.svg"
@@ -167,4 +167,50 @@ function abrirModal() {
 
 function fecharModal() {
     $("#modalLogin").modal("hide");
+}
+//Modal Pagina de Busca
+function abrirModal2() {
+    var modal2 = document.getElementById('ModalBusca');
+    var bts = bootstrap.Modal.getOrCreateInstance(modal2);
+    $('#ModalBusca').modal("handleUpdate")
+    bts.show()
+}
+
+$(document).ready(function () {
+    $(document).on('click', '.MedicoModal', function () {
+        var medicoid = $(this).attr('id')
+
+        fetch('/modal', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                obj: medicoid
+            })
+        }).then(res => {
+            /*  const response = res.json()
+             console.log(response.Object) */
+            return res.json()
+        }).then(data => {
+
+            document.getElementById('modalImg').src = data.foto
+            document.getElementById('modalNome').innerText = 'Dr. ' + data.nome
+            document.getElementById('modalEstado').innerText = data.estado
+            document.getElementById('modalEmail').innerText = "' " + data.email
+            document.getElementById('modalNascimento').innerText = data.dataNascimento
+            document.getElementById('modalSituacao').innerText = data.situacao
+            document.getElementById('modalEspecialidades').innerText = data.especialidades
+
+            console.log(data)
+
+            abrirModal2()
+        })
+
+    })
+})
+function fecharModal2() {
+    $('#ModalBusca').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove()
 }

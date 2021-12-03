@@ -184,6 +184,18 @@ app.put('/busca', (req, res)=>{
     })
 })
 
+app.post('/modal', (req, res) => {
+    obj = req.body.obj
+    console.log(obj)
+
+    dbo.collection('infoMedicos').findOne({_id:objectId(obj)}, (erro, resultado) => {
+
+        res.send(JSON.stringify(resultado))
+
+    })
+
+})
+
 
 // LISTEN
 app.listen(port, () => {
