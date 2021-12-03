@@ -15,6 +15,7 @@
     </div>
   </form>
 
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -30,6 +31,7 @@
       </tr>
       {{else}}
       {{#if infoMedico}}
+
       {{#each infoMedico}}
       <tr class="MedicoModal" onclick="abrirModal2()" id="{{_id}}">
         <td scope="row">{{nome}}</td>
@@ -42,6 +44,7 @@
         <td scope="row" colspan="3">Aguardando termo de busca...</td>
       </tr>
       {{/if}}
+
       {{/if}}
     </tbody>
   </table>
