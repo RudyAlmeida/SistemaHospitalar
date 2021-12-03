@@ -1,6 +1,6 @@
 <section>
     <table class="table table-striped">
-        <thead>
+        <thead class="text-center">
             <th>Nome</th>
             <th>Endereço</th>
             <th>Telefone</th>
@@ -9,6 +9,7 @@
             <th>Email</th>
             <th>Situação</th>
             <th>Especialidade</th>
+
         </thead>
         <tbody>
             {{#each resultado}}
@@ -23,9 +24,9 @@
                 <td>{{especialidades}}</td>
                 
                 <td>
-                    <a href="/medico/editar/{{_id}}"><button class="btn btn-success">editar</button></a>
+                    <a href="/medico/editar/{{_id}}"><img src="/img/edit.png"width="20px"></a>
                     {{!-- quando clicar em excluir vai chamar a rota definida la no index, colocar botão em um link passar a rota e o id do get dentro do handlebars com underline _ --}}
-                    <a href="/medico/deletar/{{_id}}"><button class="btn btn-danger">excluir</button></a>
+                    <a href="/medico/deletar/{{_id}}"><img src="/img/delete.png"width="20px"></a>
                 </td>
             </tr>
             {{/each}}
