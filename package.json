@@ -1,6 +1,9 @@
 {
   "name": "hospital",
   "version": "1.0.0",
+  "engines": {
+    "node": "17.1.0"
+  }
   "description": "",
   "main": "index.js",
   "scripts": {
