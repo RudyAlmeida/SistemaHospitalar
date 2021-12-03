@@ -1,49 +1,79 @@
 <div class="col-lg-8 position-relative start-50 translate-middle-x">
   <h1 class="text-center ">Encontre seu Médico</h1>
-<form class="my-3" action="/busca?_method=PUT" method="post">
-  <div class="form-floating">
-    <select class="form-control" name="tipoBusca" id="tipoBusca">
-      <option value="nome">Por Nome</option>
-      <option value="estado">Por Estado</option>
-      <option value="especialidades">Por Especialidades</option>
-    </select>
-    <label for="tipoBusca"><b>Selecione o tipo de busca:</b></label>
-  </div>
-  <div class="input-group">
-    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-    <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo da busca" required>
-    <button type="submit" class="btn btn-primary">Buscar</button>
-  </div>
-</form>
+  <form class="my-3" action="/busca?_method=PUT" method="post">
+    <div class="form-floating">
+      <select class="form-control" name="tipoBusca" id="tipoBusca">
+        <option value="nome">Por Nome</option>
+        <option value="estado">Por Estado</option>
+        <option value="especialidades">Por Especialidades</option>
+      </select>
+      <label for="tipoBusca"><b>Selecione o tipo de busca:</b></label>
+    </div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo da busca" required>
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+  </form>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Estado</th>
-      <th scope="col">Especialidade</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#if semResposta}}
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Especialidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if semResposta}}
       <tr>
         <td scope="row" colspan="3">Nenhum resultado encontrado. Tente outro termo ou tipo de busca.</td>
       </tr>
-    {{else}}
-      {{#if infoMedico}}
-        {{#each infoMedico}}
-          <tr onclick="abrirModal()">
-            <td scope="row">{{nome}}</td>
-            <td scope="row">{{estado}}</td>
-            <td scope="row">{{especialidades}}</td>
-          </tr>
-        {{/each}}
       {{else}}
-        <tr >
-          <td scope="row" colspan="3">Aguardando termo de busca...</td>
-        </tr>
+      {{#if infoMedico}}
+
+      {{#each infoMedico}}
+      <tr class="MedicoModal" onclick="abrirModal2()" id="{{_id}}">
+        <td scope="row">{{nome}}</td>
+        <td scope="row">{{estado}}</td>
+        <td scope="row">{{especialidades}}</td>
+      </tr>
+      {{/each}}
+      {{else}}
+      <tr>
+        <td scope="row" colspan="3">Aguardando termo de busca...</td>
+      </tr>
       {{/if}}
-    {{/if}}
-  </tbody>
-</table>  
+
+      {{/if}}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal" tabindex="-1" id="ModalBusca">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mais Infos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="text-center"><img src="" id="modalImg" style="width: 200px; border-radius: 20px"></div>
+          <div id="modalNome"></div>
+          <div id="modalEstado"></div>
+          <div id="modalEmail"></div>
+          <div id="modalNascimento"></div>
+          <div id="modalSituacao"></div>
+          <div id="modalEspecialidades"></div>
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

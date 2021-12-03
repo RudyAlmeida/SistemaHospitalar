@@ -293,6 +293,18 @@ app.put('/busca', (req, res) => {
     })
 })
 
+app.post('/modal', (req, res) => {
+    obj = req.body.obj
+    console.log(obj)
+
+    dbo.collection('infoMedicos').findOne({_id:objectId(obj)}, (erro, resultado) => {
+
+        res.send(JSON.stringify(resultado))
+
+    })
+
+})
+
 app.get('/admin/', checkAdmin, (req, res) => {
 
     /*  id = req.params.id
@@ -343,6 +355,7 @@ app.get('/medico/editar/:_id', (req, res) => {
 
 
 })
+
 
 // LISTEN
 app.listen(port, () => {
