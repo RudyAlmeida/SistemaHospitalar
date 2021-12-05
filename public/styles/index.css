@@ -1,65 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&display=swap');
-.home .content h2{
+.home .content h2 {
     font-size: 4rem;
     color: rgb(41, 41, 41);
     font-family: 'Roboto';
 }
-.home .content h2 span{
+
+.home .content h2 span {
     color: #4ec1c7;
 }
-.home .content h4{
+
+.home .content h4 {
     font-size: 2rem;
     color: rgb(41, 41, 41);
     font-family: 'Roboto';
 }
-.home .content a{
+
+.home .content a {
     background-color: #4ec1c7;
     color: #fff;
 }
-.team h1{
+
+.team h1 {
     font-size: 36px;
     font-weight: bold;
 }
-.team img{
-   margin-top: -50px;
+
+.team img {
+    margin-top: -50px;
 }
-.team p{
+
+.team p {
     font-weight: 500;
 }
-.team .card{
+
+.team .card {
     border-radius: 0;
-    box-shadow: 5px 5px 10px #79B4B7 ;
+    box-shadow: 5px 5px 10px #79B4B7;
 }
-.team .card:hover{
-    background-color:#abe7eb ;
+
+.team .card:hover {
+    background-color: #abe7eb;
 }
-.team .ap{
+
+.team .ap {
     color: black;
 }
-.team .card i{
+
+.team .card i {
     color: #39979c;
 }
-.especialidades{
-    background: #ccf6f8 ;
+
+.especialidades {
+    background: #ccf6f8;
 }
-.content .title{
+
+.content .title {
     top: 50%;
     left: 90%;
     transform: translate(-15%, -100%);
     font-size: 30px;
     color: #fff;
 }
-.item img{
+
+.item img {
     border-radius: 10px;
     cursor: pointer;
 }
-.item img:hover{
+
+.item img:hover {
     box-shadow: 7px 5px 8px 2px rgb(161, 161, 161);
 }
-.imgMedico{
+
+.imgMedico {
     filter: drop-shadow(0 0 1rem gray)
-    
 }
-.headerModal{
+
+.headerModal {
     background-color: #79B4B7;
 }
