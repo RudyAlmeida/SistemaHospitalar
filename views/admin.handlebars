@@ -1,6 +1,3 @@
-{{!-- {{#with resultado}}
-{{#if admin}} --}}
-
 
 <div class="container-fluid my-5 vh-100">
     <div class="row w-100 text-center">
@@ -11,16 +8,10 @@
     </div>
     <div class="row w-100">
         <div class="col w-100 text-center">
-            <a href="#"><button class="btn btn-dark mx-3">Adicionar/Editar Especialidades</button></a>
-            <a href="#"><button class="btn btn-dark mx-3">Adicionar/Editar Médicos</button></a>
-            <a href="/admin/cadUser/{{_id}}"><button class="btn btn-dark mx-3">Adicionar/Editar Administradores</button></a>
+            <a href="/cadEsp"><button class="btn btn-dark mx-3">Adicionar/Editar Especialidades</button></a>
+            <a href="/cadMedicos"><button class="btn btn-dark mx-3">Adicionar Médicos</button></a>
+            <a href="/medico/listagem"><button class="btn btn-dark mx-3">Listar/Editar Médicos</button></a>
+            <a href="/admin/cadUser"><button class="btn btn-dark mx-3">Adicionar/Editar Administradores</button></a>
         </div>
     </div>
 </div>
-
-{{!-- {{else}} --}}
-
-{{!-- <h1>Acesso não permitido</h1> --}}
-
-{{!-- {{/if}}
-{{/with}} --}}
