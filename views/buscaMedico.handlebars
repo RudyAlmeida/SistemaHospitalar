@@ -51,28 +51,61 @@
 </div>
 
 <div class="modal" tabindex="-1" id="ModalBusca">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+  <div class="modal-dialog modal-dialog-scrollable modal-md">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Mais Infos</h5>
+      <div class="modal-header headerModal">
+        <h5 class="modal-title ">Mais Infos</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container">
-          <div class="text-center"><img src="" id="modalImg" style="width: 200px; border-radius: 20px"></div>
-          <div id="modalNome"></div>
-          <div id="modalEstado"></div>
-          <div id="modalEmail"></div>
-          <div id="modalNascimento"></div>
-          <div id="modalSituacao"></div>
-          <div id="modalEspecialidades"></div>
-
-
+          <div class="text-center imgMedico"><img src="" id="modalImg" style="width: 200px; border-radius: 100px; "></div>
+          <div id="modalNome" class="fw-bolder text-center mt-2"></div>
+          <div class="row mt-5">
+            <div class="col">
+              <p class="fw-bolder">Estado:</p>
+            </div>
+            <div class="col">
+              <p id="modalEstado"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Email:</p>
+            </div>
+            <div class="col">
+              <p id="modalEmail"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Nascimento:</p>
+            </div>
+            <div class="col">
+             <p id="modalNascimento"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Situação:</p>
+            </div>
+            <div class="col">
+             <p id="modalSituacao"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Especialidade:</p>
+            </div>
+            <div class="col">
+             <div id="modalEspecialidades"></div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Marcar consulta</button>
       </div>
     </div>
   </div>

@@ -289,7 +289,7 @@ app.put('/busca', (req, res) => {
         let semResposta = false
         if (erro) throw erro
         if (infoMedico.length == 0) semResposta = true
-        res.render('buscaMedico', { infoMedico, semResposta })
+        res.render('buscaMedico', { infoMedico, semResposta, style:'index.css' })
     })
 })
 
