@@ -56,3 +56,10 @@
 .item img:hover{
     box-shadow: 7px 5px 8px 2px rgb(161, 161, 161);
 }
+.imgMedico{
+    filter: drop-shadow(0 0 1rem gray)
+    
+}
+.headerModal{
+    background-color: #79B4B7;
+}

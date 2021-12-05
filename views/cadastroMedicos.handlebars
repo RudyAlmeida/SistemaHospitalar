@@ -1,43 +1,41 @@
-<main>
+<main id="cadastroMed">
 
-    {{!-- para chamar uma partial --}}
 
-    <section class="titulo">
-        <h2>Cadastro de Médicos</h2>
-        <span>informações</span>
+    <section class="mb-4" style=background:"linear-gradient(to bottom, Transparente 0%,Transparente 50%,red 50%,red 100%)">
+        <h1 class="display-2 text-center mt-3">Cadastro de Médicos</h1>
     </section>
-    <section class="card">
+    <section style="" class="col col-lg-6 col-sm-12 container card mb-4 bg-light ">
 
-        <form action="/addMedicos" method="post">
+        <form action="/addMedicos" method="post" enctype="multipart/form-data">
 
-            <div class="linhaDeInput">
-                <label>Nome:</label>
-                <input type="text" id="nome" placeholder="digite seu nome" name="nome"></input>
+            <div class="mt-4 mb-3">
+                <label><h5>Nome:</h5></label>
+                <input type="text" id="nome" placeholder="digite seu nome" name="nome" class="form-control w-80" value="{{resultado.nome}}"></input>
             </div>
 
 
-            <div class="linhaDeInput">
-                <label>Endereço:</label>
-                <input type="text" id="endereco" placeholder="digite seu endereço" name="endereco"></input>
+            <div class="mb-3">
+                <label><h5>Endereço:</h5></label>
+                <input type="text" id="endereco" placeholder="digite seu endereço" name="endereco" class="form-control" value="{{resultado.endereco}}"></input>
             </div>
 
 
-            <div class="linhaDeInput">
-                <label>Telefone:</label>
-                <input type="tel" id="telefone" placeholder="(00) 0000-0000" class="inp" name="telefone">
+            <div class="mb-3">
+                <label><h5>Telefone:</h5></label>
+                <input type="tel" id="telefone" placeholder="(00) 0000-0000" class="form-control" name="telefone" class="form-control" value="{{resultado.telefone}}">
             </div>
 
 
-            <div class="linhaDeInput">
-                <label>Data de Nascimento:</label>
-                <input type="date" id="datanascimento" placeholder="data de nascimento" name="datanascimento"></input>
+            <div class="mb-3">
+                <label><h5>Data de Nascimento:</h5></label>
+                <input type="date" id="datanascimento" placeholder="data de nascimento" name="dataNascimento" class="form-control" value="{{resultado.dataNascimento}}"></input>
             </div>
 
 
-            <div class="linhaDeInput">
-                <label>UF:</label>
-                <select id="estado" class="esc" id name="estado">
-                    <option value="">selecione seu estado</option>
+            <div class="mb-3">
+                <label><h5>UF:</h5></label>
+                <select id="estado" class="form-control" name="estado" value="{{resultado.estado}}">
+                    <option value="{{resultado.estado}}">{{resultado.estado}}</option>
                     <option value="AC">AC</option>
                     <option value="AL">AL</option>
                     <option value="AP">AP</option>
@@ -69,38 +67,44 @@
             </div>
 
 
-            <div class="linhaDeInput">
-                <label>Email</label>
-                <input type="text" id="email" placeholder="digite seu e-mail" name="email"></input>
+            <div class="mb-3">
+                <label><h5>Email</h5></label>
+                <input type="text" id="email" placeholder="digite seu e-mail" name="email" class="form-control" value="{{resultado.email}}"></input>
             </div>
 
 
-            <div class="linhaDeInput">
+            <div class="mb-3">
 
-                <label>Situação:</label>
-                <select id="situacao" class="esc" id name="situacao">
-                    <option value=">selecione seu status" </option>
-                    <option value="ativo">CRM Ativo</option>
-                    <option value="inativo">CRM Inativo</option>
+                <label><h5>Situação CRM:</h5></label>
+                <select id="situacao" class="form-control" id name="situacao" value="{{resultado.situacao}}">
+                    <option value="{{resultado.situacao}}">{{resultado.situacao}}</option>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
 
                 </select>
             </div>
 
-            <div>
-                <label>Especialidades:</label>
-                <select id="especialidades" class="esc" name="especialidades">
+            <div class="mb-3">
+                <label><h5>Especialidades:</h5></label>
+                <select id="especialidades" class="form-control" name="especialidades" value="{{resultado.especialidades}}">
 
-                    {{#each resultado}}
+                    <option value="{{resultado.especialidades}}">{{resultado.especialidades}}</option>
 
-                    <option value="{{nome}}">{{nome}}</option>
+                    {{#each especialidades}}
+
+                    <option name="option" value="{{nome}}">{{nome}}</option>
 
                     {{/each}}
                 </select>
             </div>
 
+            <div class="mb-3">
+                <input type="file" name="imagem">
+            </div>
 
-            <button id="btn1" type="submit">Salvar</button>
-            <button id="btn2" type="reset">Cancelar</button>
+
+            <input type="hidden" id="" name="idInp" value="{{resultado._id}}">
+            <button id="" type="submit" class="btn btn-dark mb-4">{{action}}</button>
 
         </form>
     </section>

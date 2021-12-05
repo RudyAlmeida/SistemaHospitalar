@@ -1,48 +1,112 @@
 <div class="col-lg-8 position-relative start-50 translate-middle-x">
   <h1 class="text-center ">Encontre seu Médico</h1>
-<form class="my-3" action="/busca?_method=PUT" method="post">
-  <div class="form-floating">
-    <select class="form-control" name="tipoBusca" id="tipoBusca">
-      <option value="nome">Por Nome</option>
-      <option value="estado">Por Estado</option>
-      <option value="especialidades">Por Especialidades</option>
-    </select>
-    <label for="tipoBusca"><b>Selecione o tipo de busca:</b></label>
-  </div>
-  <div class="input-group">
-    <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo da busca" required>
-    <button type="submit" class="btn btn-primary">Buscar</button>
-  </div>
-</form>
+  <form class="my-3" action="/busca?_method=PUT" method="post">
+    <div class="form-floating">
+      <select class="form-control" name="tipoBusca" id="tipoBusca">
+        <option value="nome">Por Nome</option>
+        <option value="estado">Por Estado</option>
+        <option value="especialidades">Por Especialidades</option>
+      </select>
+      <label for="tipoBusca"><b>Selecione o tipo de busca:</b></label>
+    </div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="termo" name="termo" placeholder="Digite o termo da busca" required>
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+  </form>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Estado</th>
-      <th scope="col">Especialidade</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#if semResposta}}
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Especialidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if semResposta}}
       <tr>
         <td scope="row" colspan="3">Nenhum resultado encontrado. Tente outro termo ou tipo de busca.</td>
       </tr>
-    {{else}}
-      {{#if infoMedico}}
-        {{#each infoMedico}}
-          <tr>
-            <td scope="row">{{nome}}</td>
-            <td scope="row">{{estado}}</td>
-            <td scope="row">{{especialidades}}</td>
-          </tr>
-        {{/each}}
       {{else}}
-        <tr>
-          <td scope="row" colspan="3">Aguardando termo de busca...</td>
-        </tr>
+      {{#if infoMedico}}
+
+      {{#each infoMedico}}
+      <tr class="MedicoModal" onclick="abrirModal2()" id="{{_id}}">
+        <td scope="row">{{nome}}</td>
+        <td scope="row">{{estado}}</td>
+        <td scope="row">{{especialidades}}</td>
+      </tr>
+      {{/each}}
+      {{else}}
+      <tr>
+        <td scope="row" colspan="3">Aguardando termo de busca...</td>
+      </tr>
       {{/if}}
-    {{/if}}
-  </tbody>
-</table>  
+
+      {{/if}}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal" tabindex="-1" id="ModalBusca">
+  <div class="modal-dialog modal-dialog-scrollable modal-md">
+    <div class="modal-content">
+      <div class="modal-header headerModal">
+        <h5 class="modal-title ">Mais Infos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="text-center imgMedico"><img src="" id="modalImg" style="width: 200px; border-radius: 100px; "></div>
+          <div id="modalNome" class="fw-bolder text-center mt-2"></div>
+          <div class="row mt-5">
+            <div class="col">
+              <p class="fw-bolder">Estado:</p>
+            </div>
+            <div class="col">
+              <p id="modalEstado"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Email:</p>
+            </div>
+            <div class="col">
+              <p id="modalEmail"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Nascimento:</p>
+            </div>
+            <div class="col">
+             <p id="modalNascimento"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Situação:</p>
+            </div>
+            <div class="col">
+             <p id="modalSituacao"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="fw-bolder">Especialidade:</p>
+            </div>
+            <div class="col">
+             <div id="modalEspecialidades"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Marcar consulta</button>
+      </div>
+    </div>
+  </div>
 </div>
