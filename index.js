@@ -64,9 +64,14 @@ app.get('/', (req, res) => {
     res.render('./index', { style: 'index.css' })
 })
 
-// CADASTRO de ESP
+
+// CRUD de ESPECIALIDADES
+
 app.get('/cadEsp', (req, res) => {
-    res.render('cadEspecialidades')
+    dbo.collection('Especialidades').find({}).collation({ locale: "pt" }).sort({ nome: 1 }).toArray((erro, especialidades) => {
+        if (erro) throw erro
+        res.render('cadEspecialidades', { especialidades })
+    })
 })
 
 app.post('/addEsp', (req, res) => {
@@ -74,9 +79,44 @@ app.post('/addEsp', (req, res) => {
         nome: req.body.especialidade
     }
     dbo.collection('Especialidades').insertOne(obj, (erro, add) => {
-        console.log(`Especialidade '${obj.nome}' cadastrada.`)
         res.redirect('/cadEsp')
     })
+})
+
+app.get('/cadEsp/editar/:id', (req, res) => {
+    let id = req.params.id
+    let objID = new objectId(id)
+
+    dbo.collection('Especialidades').findOne({ _id: objID }, (erro, esp) => {
+        if (erro) throw erro
+        let espID = esp._id
+        let espNome = esp.nome
+        res.render('editarEspecialidade', { espNome, espID })
+    })
+
+})
+
+app.post('/atualizarEsp/:id', (req, res) => {
+    let id = req.params.id
+    let objID = new objectId(id)
+    let novoNome = req.body.especialidade
+
+    async function atualizar() {
+        await dbo.collection('Especialidades').findOneAndReplace({ _id: objID }, { nome: novoNome })
+        res.redirect('/cadEsp')
+    }
+    atualizar()
+})
+
+app.get('/cadEsp/excluir/:id', (req, res) => {
+    let id = req.params.id
+    let objID = new objectId(id)
+
+    async function atualizar() {
+        await dbo.collection('Especialidades').deleteOne({ _id: objID })
+        res.redirect('/cadEsp')
+    }
+    atualizar()
 })
 
 app.get('/foto', (req, res) => {
@@ -291,7 +331,7 @@ app.put('/busca', (req, res) => {
         let semResposta = false
         if (erro) throw erro
         if (infoMedico.length == 0) semResposta = true
-        res.render('buscaMedico', { infoMedico, semResposta, style:'index.css' })
+        res.render('buscaMedico', { infoMedico, semResposta, style: 'index.css' })
     })
 })
 
@@ -299,7 +339,7 @@ app.post('/modal', (req, res) => {
     obj = req.body.obj
     console.log(obj)
 
-    dbo.collection('infoMedicos').findOne({_id:objectId(obj)}, (erro, resultado) => {
+    dbo.collection('infoMedicos').findOne({ _id: objectId(obj) }, (erro, resultado) => {
 
         res.send(JSON.stringify(resultado))
 
