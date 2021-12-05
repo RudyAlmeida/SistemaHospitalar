@@ -32,13 +32,10 @@ const storage = multer.diskStorage({
 const checkAdmin = function(req, res, next) {
     const user = JSON.parse(localStorage.getItem('Usuario'))
     if (user == null) {
-        console.log(user)
         res.redirect('/')
     } else if (user.admin == true) {
-        console.log(user.admin)
         return next()
     } else {
-        console.log(user.admin)
         res.redirect('/')
     }
 }
@@ -67,14 +64,14 @@ app.get('/', (req, res) => {
 
 // CRUD de ESPECIALIDADES
 
-app.get('/cadEsp', (req, res) => {
+app.get('/cadEsp', checkAdmin, (req, res) => {
     dbo.collection('Especialidades').find({}).collation({ locale: "pt" }).sort({ nome: 1 }).toArray((erro, especialidades) => {
         if (erro) throw erro
         res.render('cadEspecialidades', { especialidades })
     })
 })
 
-app.post('/addEsp', (req, res) => {
+app.post('/addEsp', checkAdmin, (req, res) => {
     const obj = {
         nome: req.body.especialidade
     }
@@ -83,7 +80,7 @@ app.post('/addEsp', (req, res) => {
     })
 })
 
-app.get('/cadEsp/editar/:id', (req, res) => {
+app.get('/cadEsp/editar/:id', checkAdmin, (req, res) => {
     let id = req.params.id
     let objID = new objectId(id)
 
@@ -96,7 +93,7 @@ app.get('/cadEsp/editar/:id', (req, res) => {
 
 })
 
-app.post('/atualizarEsp/:id', (req, res) => {
+app.post('/atualizarEsp/:id', checkAdmin, (req, res) => {
     let id = req.params.id
     let objID = new objectId(id)
     let novoNome = req.body.especialidade
@@ -108,7 +105,7 @@ app.post('/atualizarEsp/:id', (req, res) => {
     atualizar()
 })
 
-app.get('/cadEsp/excluir/:id', (req, res) => {
+app.get('/cadEsp/excluir/:id', checkAdmin, (req, res) => {
     let id = req.params.id
     let objID = new objectId(id)
 
@@ -119,43 +116,27 @@ app.get('/cadEsp/excluir/:id', (req, res) => {
     atualizar()
 })
 
-app.get('/foto', (req, res) => {
-    res.render('foto')
-})
 
 app.get('/cadUsuario', (req, res) => {
     res.render('cadastroUsuario', { style: "usuario.css" })
 })
-app.get('/login', (req, res) => {
-    res.render('login')
-})
 
-app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
-    const { nome, site } = req.body;
-    const file = req.file
-    const resultado = await uploadFile(file)
-    console.log(resultado)
-    resultado.Location
-})
-
-//--------------------------------------//
 
 //rota de cadastro de médicos
 
-app.get('/cadMedicos', (req, res) => {
+app.get('/cadMedicos', checkAdmin, (req, res) => {
 
     let action = "Salvar"
 
     dbo.collection("Especialidades").find({}).toArray((erro, especialidades) => {
         if (erro) throw erro
-        console.log(especialidades)
         res.render('cadastroMedicos', { especialidades, action })
     })
 })
 
 //post do cadastro
 
-app.post('/addMedicos', upload.single('imagem'), async(req, res) => {
+app.post('/addMedicos', checkAdmin, upload.single('imagem'), async(req, res) => {
 
     const file = req.file
     const resultado = await uploadFile(file)
@@ -174,7 +155,6 @@ app.post('/addMedicos', upload.single('imagem'), async(req, res) => {
     if (req.body.idInp == "") {
         dbo.collection('infoMedicos').insertOne(obj, (erro, resultado) => {
             if (erro) throw erro
-            console.log('1 medico inserido')
             res.redirect("/medico/listagem")
         })
 
@@ -198,7 +178,7 @@ app.post('/addMedicos', upload.single('imagem'), async(req, res) => {
 
 //listagem de médicos
 
-app.get('/medico/listagem', (req, res) => {
+app.get('/medico/listagem', checkAdmin, (req, res) => {
     dbo.collection('infoMedicos').find({}).toArray((erro, resultado) => {
         if (erro) throw erro
         res.render('listagemMedicos', { resultado })
@@ -207,7 +187,7 @@ app.get('/medico/listagem', (req, res) => {
 
 //deletar médicos
 
-app.get('/medico/deletar/:_id', (req, res) => {
+app.get('/medico/deletar/:_id', checkAdmin, (req, res) => {
 
     const idMed = req.params._id
     const objMed = new objectId(idMed)
@@ -218,7 +198,6 @@ app.get('/medico/deletar/:_id', (req, res) => {
 
         dbo.collection("Especialidades").find({}).toArray((erro, resultado) => {
             if (erro) throw erro
-            console.log(resultado)
             res.render('cadastroMedicos', { resultado })
         })
 
@@ -228,7 +207,7 @@ app.get('/medico/deletar/:_id', (req, res) => {
 })
 
 //post do cadastro
-app.post('/addMedicos', (req, res) => {
+app.post('/addMedicos', checkAdmin, (req, res) => {
         const obj = {
             nome: req.body.nome,
             endereco: req.body.endereco,
@@ -242,7 +221,6 @@ app.post('/addMedicos', (req, res) => {
         }
         dbo.collection('infoMedicos').insertOne(obj, (erro, resultado) => {
             if (erro) throw erro
-            console.log('1 medico inserido')
             res.redirect("/home")
         })
     })
@@ -262,7 +240,6 @@ app.post('/NovoUsuario', (req, res) => {
     }
     dbo.collection('Usuarios').insertOne(Nusuario, (err, result) => {
         if (err) throw err
-        console.log('Usuario Cadastrado')
         res.redirect('/cadUsuario')
     })
 })
@@ -275,11 +252,9 @@ app.post('/salvarGoogle', (req, res) => {
             dbo.collection('Usuarios').insertOne(obj, (err, result) => {
                 if (err) throw err
                 localStorage.setItem('Usuario', JSON.stringify(obj))
-                console.log('Usuario Cadastrado')
             })
         } else {
             localStorage.setItem('Usuario', JSON.stringify(resultado))
-            console.log('Usuario já cadastrado')
         }
     })
 
@@ -302,8 +277,6 @@ app.post('/logarUser', (req, res) => {
             if (element['email'] == user['email'] && element['senha'] == user['password']) {
                 usuario = element
                 localStorage.setItem('Usuario', JSON.stringify(element))
-                console.log(usuario)
-
             }
         })
         res.send(JSON.stringify(usuario))
@@ -337,7 +310,6 @@ app.put('/busca', (req, res) => {
 
 app.post('/modal', (req, res) => {
     obj = req.body.obj
-    console.log(obj)
 
     dbo.collection('infoMedicos').findOne({ _id: objectId(obj) }, (erro, resultado) => {
 
@@ -349,30 +321,22 @@ app.post('/modal', (req, res) => {
 
 app.get('/admin/', checkAdmin, (req, res) => {
 
-    /*  id = req.params.id
-     dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => { */
-    /* console.log(resultado) */
     res.render('admin')
-        /* }) */
 
 })
 
 
 app.get('/admin/cadUser/', checkAdmin, (req, res) => {
-    /* id = req.params.id
-    dbo.collection('Usuarios').findOne({ _id: objectId(id) }, (erro, resultado) => { */
-    dbo.collection("Usuarios").find({ admin: true }).toArray((erro, result) => {
-            if (erro) throw erro
-            console.log(result)
-            res.render('cadUser', { result })
-        })
-        /*   }) */
 
+    dbo.collection("Usuarios").find({ admin: true }).toArray((erro, result) => {
+        if (erro) throw erro
+        res.render('cadUser', { result })
+    })
 })
 
 //editar médicos
 
-app.get('/medico/editar/:_id', (req, res) => {
+app.get('/medico/editar/:_id', checkAdmin, (req, res) => {
 
     let action = "atualizar"
 
@@ -383,19 +347,11 @@ app.get('/medico/editar/:_id', (req, res) => {
     dbo.collection('infoMedicos').findOne({ _id: objMed }, (erro, resultado) => {
         if (erro) throw erro
             // arquivo da página
-        console.log(resultado)
-
         dbo.collection('Especialidades').find({}).toArray((erro, especialidades) => {
             if (erro) throw erro
-
             res.render('cadastroMedicos', { resultado, action, especialidades })
-
         })
-
-
     })
-
-
 })
 
 
