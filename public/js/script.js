@@ -108,6 +108,11 @@ function signUser() {
 
 
 function signOut() {
+    document.getElementById('dropText').innerText = "Cadastre-se / Login"
+    let logImg = document.getElementById('loginImg')
+    logImg.src = "img/person-circle.svg"
+    localStorage.clear();
+    document.getElementById('liAdmin').innerHTML = '';
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
         document.getElementById('dropText').innerText = "Cadastre-se / Login"
