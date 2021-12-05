@@ -10,3 +10,8 @@ input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
 footer {
     box-shadow: 0 50vh 0 30.4vh #212529;
 }
+
+.editIcons, a:link {
+    width: 20px;
+    text-decoration: none;
+}
