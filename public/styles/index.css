@@ -78,3 +78,6 @@
 .headerModal {
     background-color: #79B4B7;
 }
+.imgTime{
+    filter: drop-shadow(0 0 1rem rgb(138, 138, 138))
+}
