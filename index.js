@@ -104,10 +104,12 @@ app.post('/salvarFoto', upload.single('imagem'), async(req, res) => {
 
 app.get('/cadMedicos', (req, res) => {
 
+    let action = "Salvar"
+
     dbo.collection("Especialidades").find({}).toArray((erro, especialidades) => {
         if (erro) throw erro
         console.log(especialidades)
-        res.render('cadastroMedicos', { especialidades })
+        res.render('cadastroMedicos', { especialidades, action })
     })
 })
 
