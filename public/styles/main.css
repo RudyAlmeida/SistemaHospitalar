@@ -3,15 +3,11 @@
     width: 3vw;
 }
 
-input::-webkit-input-placeholder {/* Chrome/Opera/Safari/Edge */
-	font-style: italic;
+input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari/Edge */
+    font-style: italic;
 }
 
 footer {
     box-shadow: 0 50vh 0 30.4vh #212529;
-}
-
-.editIcons, a:link {
-    width: 20px;
-    text-decoration: none;
 }
