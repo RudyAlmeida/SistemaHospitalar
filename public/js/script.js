@@ -208,7 +208,7 @@ $(document).ready(function () {
             document.getElementById('modalImg').src = data.foto
             document.getElementById('modalNome').innerText = 'Dr. ' + data.nome
             document.getElementById('modalEstado').innerText = data.estado
-            document.getElementById('modalEmail').innerText = "' " + data.email
+            document.getElementById('modalEmail').innerText =  data.email
             document.getElementById('modalNascimento').innerText = data.dataNascimento
             document.getElementById('modalSituacao').innerText = data.situacao
             document.getElementById('modalEspecialidades').innerText = data.especialidades
