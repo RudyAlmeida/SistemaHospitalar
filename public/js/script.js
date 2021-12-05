@@ -206,8 +206,6 @@ $(document).ready(function() {
             document.getElementById('modalSituacao').innerText = data.situacao
             document.getElementById('modalEspecialidades').innerText = data.especialidades
 
-            console.log(data)
-
             abrirModal2()
         })
 
