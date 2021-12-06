@@ -11,3 +11,8 @@ input::-webkit-input-placeholder {
 footer {
     box-shadow: 0 50vh 0 30.4vh #212529;
 }
+
+.editIcons {
+    width: 20px;
+    text-decoration: none;
+}
