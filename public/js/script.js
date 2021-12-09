@@ -2,7 +2,7 @@
 function start() {
     gapi.load('auth2', function() {
         auth2 = gapi.auth2.init({
-            client_id: '113301151213-bkaouvjjjasi17hvu163054palrsju6k.apps.googleusercontent.com'
+            client_id: '113301151213-l114h4vt8hat6pijhbkie3hqhc09felb.apps.googleusercontent.com'
 
         });
     });
